@@ -1,4 +1,4 @@
-import asyncio
+mport asyncio
 import random
 from highrise import BaseBot, User, Position
 from highrise.main import main
@@ -6,7 +6,7 @@ from highrise.main import main
 class MyBot(BaseBot):
     def init(self):
         super().init()
-        # Твои варианты приветствий (можешь менять текст в кавычках)
+        # Список твоих приветствий
         self.welcome_messages = [
             "Привет! Я так рад тебя видеть, проходи, располагайся! ✨",
             "Оу, привет-привет! Рад тебя видеть, давай общаться! 😊",
@@ -15,21 +15,20 @@ class MyBot(BaseBot):
         ]
 
     async def on_start(self, session_metadata: dict):
-        print("✅ Бот запущен и готов встречать гостей!")
+        print("✅ Бот запущен!")
 
     async def on_user_join(self, user: User, position: Position):
         # Выбираем случайную фразу
         message = random.choice(self.welcome_messages)
-        # Бот пишет в чат
+        # Бот пишет в чат (подставляем имя игрока, если хочешь, или просто фразу)
         await self.highrise.chat(message)
         # Бот машет рукой
         try:
             await self.highrise.send_emote("emote-hello", user.id)
-        except Exception as e:
-            print(f"Ошибка эмоции: {e}")
+        except:
+            pass
 
 if name == "main":
-    # Твои данные комнаты и токен
     room_id = "69ee35fab6bcfa4b70966bac"
     token = "93356fc362c144b1364b9b56314cd27400ad3d7737a7eeff88758290dbbae28d"
     
